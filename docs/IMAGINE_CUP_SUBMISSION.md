@@ -1,8 +1,8 @@
-# 🏆 Microsoft Imagine Cup 2026 - SlideSage AI Submission
+# 🏆 Microsoft Imagine Cup 2026 - edumorph Submission
 
 ## Executive Summary
 
-**Project Name**: SlideSage AI  
+**Project Name**: edumorph  
 **Category**: Education + Artificial Intelligence  
 **Innovation**: Self-Improving Learning Intelligence Platform powered by Azure + Big Data
 
@@ -442,7 +442,7 @@ const improvedTeachpack = await groq.generate(text, strategy)
 >
 > We're not just using Azure. We're showing how Azure powers the future of education: **self-improving AI that makes every student learn better by learning from students.**
 >
-> That's SlideSage AI. That's the power of Azure + Big Data + Education."
+> That's edumorph. That's the power of Azure + Big Data + Education."
 
 ---
 

@@ -1,325 +1,268 @@
-# SlideSage AI - Self-Improving Learning Intelligence Platform
+<div align="center">
 
-Transform dense lecture text into engaging analogies, clear diagrams, and short explainer videos using AI. **Now powered by Azure + Big Data** to learn from learners and automatically improve teaching quality.
+# Edumorph
+
+### Self-Improving Learning Intelligence Platform
+
+> Every student who learns makes the next student's experience better — automatically.
+
+![Next.js](https://img.shields.io/badge/Next.js-14-black?style=flat-square&logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)
+![Azure](https://img.shields.io/badge/Azure-5%20Services-0078D4?style=flat-square&logo=microsoft-azure)
+![Groq](https://img.shields.io/badge/Groq-Llama%203.3%2070B-orange?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
+
+<br/>
+
+![Edumorph Cover](edumorph_cover.png)
+
+</div>
 
 ---
 
-## 🚀 What's New: Azure + Big Data Integration
+## What is Edumorph?
 
-SlideSage now features a **closed feedback loop** powered by Microsoft Azure:
+Edumorph is an AI-powered adaptive learning platform. A student pastes any concept or lecture text, and Edumorph instantly generates multiple teaching formats — analogies, step-by-step diagrams, explainer videos, and quizzes — tailored for how that concept is best understood.
+
+What makes Edumorph different from a content generator is the **feedback loop**. Every interaction a student has — a quiz score, a video pause, a "make it simpler" click — is captured as a telemetry event, streamed into an Azure data pipeline, and analyzed to detect where learners consistently struggle. Azure OpenAI then generates targeted adaptation strategies. The next learner gets a better, smarter explanation — without any manual instructor intervention.
+
+**The system learns from learners. Teaching improves automatically.**
+
+---
+
+## The Problem
+
+Traditional digital learning platforms are static by design:
+
+| Platform | How it adapts |
+|---|---|
+| Khan Academy | It doesn't — same video for everyone |
+| Duolingo | Rule-based: if wrong, show easier content |
+| Coursera | Instructor manually updates content every few months |
+
+There is no system that closes the loop between **what students struggle with** and **how the explanation gets better** — in real time, at scale, without human intervention.
+
+---
+
+## How Edumorph Solves It
+
+Edumorph is built around a closed feedback loop powered by Azure:
 
 ```
-Teach → Observe → Stream → Analyze → Adapt → Teach Better
+Input Concept
+     │
+     ▼
+Content Generation (Groq / Llama 3.3 70B)
+     │
+     ├── Analogy
+     ├── Step-by-Step Diagram
+     ├── Explainer Video
+     └── Adaptive Quiz
+           │
+           ▼
+     Student Interacts
+           │
+           ▼
+  Telemetry Events Captured
+  (quiz score · video drop-off · feedback · regeneration clicks)
+           │
+           ▼
+  Azure Event Hubs  ──▶  Azure Stream Analytics  ──▶  Azure Data Lake Gen2
+                                                              │
+                                                              ▼
+                                                  Azure Synapse Analytics
+                                                  (concept difficulty · format effectiveness)
+                                                              │
+                                                              ▼
+                                                    Azure OpenAI (GPT-4o)
+                                                  generates adaptation strategy
+                                                              │
+                                                              ▼
+                                               Groq regenerates improved content
+                                                              │
+                                                              ▼
+                                              Next learner gets a better explanation
 ```
 
-**The Innovation**: Every student interaction (quiz scores, video engagement, feedback) streams to Azure Event Hubs, gets analyzed by Azure Synapse, and Azure OpenAI generates adaptive teaching strategies. The result? **Explanations that improve automatically with every learner.**
+---
 
-### Microsoft Imagine Cup 2026 Ready 🏆
-- ✅ **5 Azure Services** integrated seamlessly
-- ✅ **Real-time Big Data** processing at scale
-- ✅ **AI-driven adaptation** using Azure OpenAI
-- ✅ **Production-ready** architecture
-- ✅ **Measurable impact**: 20% easier concepts, 15% higher quiz scores
+## Architecture
+
+### Layers
+
+| Layer | Technology | Responsibility |
+|---|---|---|
+| Frontend | Next.js 14 App Router, React 18, TypeScript | UI, interaction capture, event batching |
+| API | Next.js Route Handlers | Content generation, telemetry ingestion, analytics export |
+| Event Streaming | Azure Event Hubs | Ingests 1000+ learning events/sec in real time |
+| Processing | Azure Stream Analytics | Enriches and routes events |
+| Storage | Azure Data Lake Gen2 | Petabyte-scale telemetry store, partitioned by date and concept |
+| Analytics | Azure Synapse Analytics | SQL queries on difficulty, engagement, and format effectiveness |
+| Adaptation | Azure OpenAI (GPT-4o) | Generates teaching improvement strategies from analytics insights |
+| Content AI | Groq (Llama 3.3 70B) | Fast multi-format teaching content generation |
+
+### Azure Services Used
+
+- **Azure Event Hubs** — real-time event ingestion at scale
+- **Azure Stream Analytics** — stateless event processing and routing
+- **Azure Data Lake Gen2** — durable, queryable telemetry storage
+- **Azure Synapse Analytics** — SQL-based learning behavior analysis
+- **Azure OpenAI** — adaptive teaching recommendations
 
 ---
 
-## ✨ Features
+## Key Features
 
-### Teaching Modes
-- **Analogy Mode**: Relatable everyday comparisons
-- **Step-by-Step Diagrams**: 3-6 clear breakdown steps
-- **One-Liner Summaries**: Memorable, quotable insights
-- **Video Generation**: 30-60s animated dialogue videos with real backgrounds
-- **Interactive Quizzes**: 7-question adaptive assessments
-
-### Azure-Powered Intelligence
-- **Real-time Event Streaming**: Azure Event Hubs captures all learning interactions
-- **Scalable Data Lake**: Azure Data Lake Gen2 stores unlimited learning telemetry
-- **Big Data Analytics**: Azure Synapse SQL identifies difficult concepts
-- **Adaptive Teaching**: Azure OpenAI generates personalized improvement strategies
-- **Self-Improving AI**: System learns which explanations work best
-
-### Gamification
-- Learning streaks and multipliers
-- Achievement badges (Bronze → Diamond)
-- Points system with dynamic rewards
-- Progress tracking across concepts
+- **Multi-format generation** — one input, four teaching outputs (analogy, diagram, video, quiz)
+- **Real-time telemetry** — every interaction streamed to Azure in under 1 second
+- **Adaptive content** — AI-generated improvement strategies applied at regeneration time
+- **Learning analytics dashboard** — concept difficulty, format effectiveness, engagement trends
+- **Student progress tracking** — per-session performance and historical trends
+- **Exportable datasets** — CSV and JSON exports for Power BI integration
+- **Gamification layer** — streaks, badges, and points to sustain engagement
 
 ---
 
-## 🏗️ Architecture
+## Tech Stack
 
-### Azure Services
-1. **Azure Event Hubs** - Real-time learning event ingestion (1000+ events/sec)
-2. **Azure Stream Analytics** - Event processing and enrichment
-3. **Azure Data Lake Gen2** - Petabyte-scale telemetry storage
-4. **Azure Synapse Analytics** - SQL-based Big Data analytics
-5. **Azure OpenAI** - Adaptive teaching strategy generation
+### Frontend
+- Next.js 14 (App Router)
+- React 18 · TypeScript · Tailwind CSS
+- Zustand (state management)
+- Recharts (analytics visualisation)
 
-### Tech Stack
-- **Frontend**: Next.js 14 (App Router, TypeScript)
-- **UI**: Tailwind CSS with glass-morphism design
-- **State**: Zustand
-- **AI Content**: Groq API (Llama 3.3 70B)
-- **AI Adaptation**: Azure OpenAI (GPT-4o)
-- **Video**: Canvas API + MediaRecorder
-- **Media**: Pexels API
-- **Validation**: Zod schemas
+### AI
+- Groq API — Llama 3.3 70B — primary content generation
+- Azure OpenAI — GPT-4o — adaptive teaching strategies
+- Zod — schema validation for all AI I/O
+
+### Cloud & Data
+- Azure Event Hubs · Azure Stream Analytics
+- Azure Data Lake Gen2 · Azure Synapse Analytics
+- Azure OpenAI Service
+
+### Infrastructure
+- Vercel (deployment)
+- pnpm (package management)
 
 ---
 
-## 🎯 Setup
+## Getting Started
 
-### Quick Start (30 minutes)
-See [QUICK_START.md](docs/QUICK_START.md) for step-by-step Azure setup.
+### Prerequisites
 
-### 1. Install Dependencies
+- Node.js 18+
+- pnpm
+- Groq API key ([console.groq.com](https://console.groq.com))
+- Azure Event Hubs + Azure OpenAI resource
+
+### 1. Clone and Install
+
 ```bash
+git clone https://github.com/your-username/edumorph.git
+cd edumorph
 pnpm install
 ```
 
-### 2. Environment Variables
-Copy `.env.example` to `.env.local` and configure:
+### 2. Configure Environment
 
-```bash
-# Groq API (for content generation)
+Create `.env.local` in the project root:
+
+```env
+# Groq (required for content generation)
 GROQ_API_KEY=your_groq_api_key
 
-# Azure Event Hubs (required)
+# Azure Event Hubs (required for telemetry)
 AZURE_EVENTHUB_CONNECTION_STRING=your_connection_string
-AZURE_EVENTHUB_NAME=slidesage-learning-events
+AZURE_EVENTHUB_NAME=edumorph-learning-events
 
-# Azure OpenAI (required for adaptive logic)
+# Azure OpenAI (required for adaptive teaching)
 AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
 AZURE_OPENAI_API_KEY=your_api_key
 AZURE_OPENAI_DEPLOYMENT_NAME=gpt-4o
 ```
 
-### 3. Run Development Server
+### 3. Run
+
 ```bash
 pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000)
 
-### 4. Verify Azure Integration
-Visit [http://localhost:3000/api/telemetry](http://localhost:3000/api/telemetry) to check status.
+Check telemetry: [http://localhost:3000/api/telemetry](http://localhost:3000/api/telemetry)
 
 ---
 
-## 📊 How It Works
+## Project Structure
 
-### The Feedback Loop
-
-1. **Student Learns**: Uses SlideSage to understand a concept
-2. **Events Stream**: Quiz scores, video engagement, feedback → Azure Event Hubs
-3. **Data Stored**: Stream Analytics → Data Lake Gen2 (partitioned by date/concept)
-4. **Analytics Run**: Synapse SQL queries identify:
-   - Concept difficulty scores
-   - Teaching format effectiveness
-   - Video drop-off points
-   - Regeneration success rates
-5. **AI Adapts**: Azure OpenAI generates adaptive strategies:
-   - Simplify analogies
-   - Add more steps to diagrams
-   - Slow down video pacing
-   - Adjust quiz difficulty
-6. **Better Teaching**: Next student gets improved, personalized explanation
-
-### Example: "Eigenvectors" Concept
-
-**Before Azure Integration**:
-- Average quiz score: 65%
-- Video completion: 60%
-- Negative feedback: 35%
-
-**After 10 students + Azure analysis**:
-- **Insight**: "Too abstract, needs everyday analogies"
-- **Azure OpenAI recommendation**: "Use sports team rankings analogy, add 2 intermediate steps"
-- **Groq generates new content** with Azure insights
-
-**Result for next student**:
-- Average quiz score: 82% ↑
-- Video completion: 91% ↑
-- Positive feedback: 78% ↑
-
----
-
-## 📈 Analytics Queries
-
-See [synapse-queries.sql](docs/synapse-queries.sql) for:
-- Concept difficulty scoring
-- Teaching format effectiveness
-- Video engagement analysis
-- Regeneration success tracking
-- Real-time learning dashboard
-- AI-ready adaptive insights
-
----
-
-## 🎬 Demo Script (For Judges)
-
-### 30-Second Pitch
-> "SlideSage learns from learners and improves teaching automatically using Azure. Every quiz, every video pause, every feedback click streams to Azure Event Hubs. Azure Synapse Analytics identifies what's difficult. Azure OpenAI adapts the teaching. The next student gets a better explanation automatically—without manual intervention."
-
-### Live Demo
-1. Show student struggling with concept (low quiz score, negative feedback)
-2. Show Azure Event Hubs receiving events in real-time
-3. Show Synapse Analytics identifying difficulty patterns
-4. Show regenerated content with Azure OpenAI insights
-5. Show improved metrics for next student
-
----
-
-## 🛠️ Development
-
-### Project Structure
 ```
-slidesage/
+edumorph/
 ├── app/
-│   ├── page.tsx                 # Main landing page
-│   ├── studio/page.tsx          # Teaching studio
+│   ├── page.tsx                      # Landing page
+│   ├── studio/page.tsx               # Teaching studio
+│   ├── analytics/page.tsx            # Analytics dashboard
+│   ├── student-dashboard/page.tsx    # Student view
 │   └── api/
-│       ├── generate/route.ts    # Content generation (Groq)
-│       ├── telemetry/route.ts   # Event streaming (Azure)
-│       └── generate/quiz/route.ts
+│       ├── generate/route.ts         # Content generation (Groq)
+│       ├── generate/quiz/route.ts    # Quiz generation
+│       ├── telemetry/route.ts        # Event ingestion (Azure)
+│       ├── analytics/route.ts        # Analytics API
+│       ├── student-analytics/route.ts
+│       └── export-data/route.ts      # Dataset exports
 ├── components/
-│   ├── InputCard.tsx            # Lecture text input
-│   ├── ResultTabs.tsx           # Teaching formats
-│   ├── ExplainerVideo.tsx       # Video generation + telemetry
-│   ├── QuizBlock.tsx            # Interactive quiz + telemetry
-│   └── FeedbackBlock.tsx        # Feedback + telemetry
+│   ├── InputCard.tsx                 # Lecture input
+│   ├── ResultTabs.tsx                # Teaching format tabs
+│   ├── ExplainerVideo.tsx            # Video + engagement telemetry
+│   ├── QuizBlock.tsx                 # Quiz + score telemetry
+│   ├── FeedbackBlock.tsx             # Feedback + telemetry
+│   └── analytics/                   # Dashboard charts and widgets
 ├── lib/
-│   ├── groq.ts                  # Groq API wrapper
-│   ├── telemetry.ts             # Event schema & batcher
-│   ├── schema.ts                # Zod validation
+│   ├── groq.ts                       # Groq API client
+│   ├── telemetry.ts                  # Event schema and batcher
+│   ├── schema.ts                     # Zod validation schemas
 │   └── azure/
-│       ├── eventHubs.ts         # Event Hubs client
-│       └── adaptiveTeaching.ts  # Azure OpenAI integration
+│       ├── eventHubs.ts              # Event Hubs client
+│       └── adaptiveTeaching.ts       # Azure OpenAI integration
 └── docs/
-    ├── AZURE_ARCHITECTURE.md    # Full Azure documentation
-    ├── QUICK_START.md           # 30-min setup guide
-    └── synapse-queries.sql      # Analytics queries
+    ├── AZURE_ARCHITECTURE.md         # Full Azure documentation
+    ├── QUICK_START.md                # Step-by-step Azure setup
+    ├── synapse-queries.sql           # Analytics SQL queries
+    └── POWERBI_SETUP.md             # BI dashboard setup
 ```
 
-### Key Files
-- **Telemetry Integration**: `lib/telemetry.ts`, `app/api/telemetry/route.ts`
-- **Azure Services**: `lib/azure/eventHubs.ts`, `lib/azure/adaptiveTeaching.ts`
-- **Analytics**: `docs/synapse-queries.sql`
-- **Architecture**: `docs/AZURE_ARCHITECTURE.md`
+---
+
+## API Reference
+
+| Route | Method | Purpose |
+|---|---|---|
+| `/api/generate` | POST | Generate multi-format teaching content |
+| `/api/generate/quiz` | POST | Generate adaptive quiz questions |
+| `/api/telemetry` | POST / GET | Ingest events / health check |
+| `/api/analytics` | GET | Retrieve aggregated learning analytics |
+| `/api/student-analytics` | GET | Per-student performance data |
+| `/api/export-data` | GET | Export datasets (CSV / JSON) |
 
 ---
 
-## 📚 Documentation
+## Documentation
 
-- [Azure Architecture](docs/AZURE_ARCHITECTURE.md) - Complete technical deep dive
-- [Quick Start Guide](docs/QUICK_START.md) - 30-minute setup
-- [Synapse Queries](docs/synapse-queries.sql) - Analytics SQL
-
----
-
-## 🎯 Deployment
-
-### Vercel (Frontend)
-```bash
-vercel deploy
-```
-
-Set environment variables in Vercel project settings:
-- `GROQ_API_KEY`
-- `AZURE_EVENTHUB_CONNECTION_STRING`
-- `AZURE_EVENTHUB_NAME`
-- `AZURE_OPENAI_ENDPOINT`
-- `AZURE_OPENAI_API_KEY`
-
-### Azure (Backend Services)
-All Azure services are cloud-native and auto-scaling:
-- Event Hubs: Always available
-- Stream Analytics: Managed service
-- Data Lake: Serverless storage
-- Synapse: On-demand SQL pool
-- Azure OpenAI: Managed endpoint
+| Document | Description |
+|---|---|
+| [Azure Architecture](docs/AZURE_ARCHITECTURE.md) | Complete technical architecture deep dive |
+| [Quick Start Guide](docs/QUICK_START.md) | Full Azure resource setup in 30 minutes |
+| [Synapse Queries](docs/synapse-queries.sql) | Analytics SQL for concept and engagement insights |
+| [Power BI Setup](docs/POWERBI_SETUP.md) | Connect Synapse data to BI dashboards |
 
 ---
 
-## 💡 Innovation Highlights
+## License
 
-### What Makes SlideSage Unique
-
-1. **Self-Improving AI**: Unlike Khan Academy (static) or Duolingo (rule-based), SlideSage learns from real user data
-2. **Azure-Native**: Deep integration with 5 Azure services showing platform mastery
-3. **Real-Time Big Data**: Processes learning events at scale with sub-second latency
-4. **Measurable Impact**: Clear metrics showing 15-22% improvement in learning outcomes
-5. **Production-Ready**: Scalable architecture handling millions of learners
-
-### Microsoft Imagine Cup Alignment
-
-- ✅ **Azure Cloud**: Event Hubs, Synapse, OpenAI, Data Lake, Stream Analytics
-- ✅ **AI & Machine Learning**: Adaptive teaching using Azure OpenAI
-- ✅ **Big Data**: Petabyte-scale telemetry analytics
-- ✅ **Education**: Democratizing personalized learning
-- ✅ **Scalability**: Cloud-native, auto-scaling architecture
+MIT — see [LICENSE](LICENSE) for details.
 
 ---
 
-## 🔬 Future Enhancements
-
-- Real-time collaborative learning sessions
-- Multi-language support (Azure Translator)
-- Voice-based learning (Azure Speech Services)
-- Computer vision for diagram generation (Azure Computer Vision)
-- Teacher dashboard with classroom insights
-- LMS integration (Canvas, Moodle, Blackboard)
-
----
-
-## 📊 Metrics & Impact
-
-### Technical Metrics
-- Event ingestion: <1s latency
-- Storage: Unlimited (Data Lake Gen2)
-- Analytics: SQL-based, familiar to educators
-- Adaptation: Real-time AI insights
-
-### Learning Outcomes
-- Concept difficulty: ↓ 20% on average
-- Quiz scores: ↑ 15% with adaptation
-- Video engagement: ↑ 22% improvement
-- Positive feedback: ↑ 18% increase
-
----
-
-## 🏆 Microsoft Imagine Cup 2026
-
-**Team**: SlideSage AI  
-**Category**: Education + AI  
-**Innovation**: Self-improving learning intelligence powered by Azure
-
-**Value Proposition**: Every student makes future learning better through Azure-powered feedback loops.
-
----
-
-## 📄 License
-
-MIT License - See LICENSE file for details
-
----
-
-## 🙏 Acknowledgments
-
-- **Microsoft Azure** - Cloud infrastructure & AI services
-- **Groq** - Fast LLM inference for content generation
-- **Pexels** - Free stock photos and videos
-- **Vercel** - Deployment platform
-- **Next.js** - React framework
-
----
-
-## 📞 Contact
-
-For Microsoft Imagine Cup inquiries:
-- **Documentation**: See `/docs` folder
-- **Architecture**: [AZURE_ARCHITECTURE.md](docs/AZURE_ARCHITECTURE.md)
-- **Quick Setup**: [QUICK_START.md](docs/QUICK_START.md)
-
-**Built with Azure. Powered by learning data. Improved by AI.**
+<div align="center">
+Built with Azure. Powered by learning data. Improved by every student.
+</div>

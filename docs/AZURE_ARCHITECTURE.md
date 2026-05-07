@@ -1,4 +1,4 @@
-# 🏗️ Azure + Big Data Architecture - SlideSage AI
+# 🏗️ Azure + Big Data Architecture - edumorph
 
 ## 📊 System Architecture Overview
 
@@ -551,5 +551,5 @@ slidesage/
 ---
 
 **Built for Microsoft Imagine Cup 2026** 🏆  
-**Team: SlideSage AI**  
+**Team: edumorph**  
 **Tech Stack: Azure + Next.js + AI + Big Data**
